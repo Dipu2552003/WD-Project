@@ -3,7 +3,6 @@ import React from "react";
 import Button from "@mui/material/Button";
 
 import HomeIcon from "@mui/icons-material/Home";
-import { Add } from "@mui/icons-material";
 
 import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
 import AssignmentIcon from "@mui/icons-material/Assignment";

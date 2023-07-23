@@ -9,10 +9,10 @@ import "./css/Main.css"
 
 function Main() {
   return (
-    <div className="Main">
+    <div className="main">
     <Header></Header>
-    <div className="Main__contents">
-      <div className='Main__content'>
+    <div className="main__contents">
+      <div className='main__content'>
         <Sidebar></Sidebar>
         <Feed></Feed>
         <Widget></Widget>
