@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import Button from "@mui/material/Button";
 
@@ -8,11 +8,22 @@ import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { Search } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import "./css/Header.css";
+import Modal from "react-responsive-modal";
+import CloseIcon from '@mui/icons-material/Close';
+
 
 function Header() {
+
+  const [open, setOpen] = useState(false);
+
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const Close=<CloseIcon></CloseIcon>
+
   return (
     <div className="Header">
       <div className="Header-content">
@@ -37,13 +48,23 @@ function Header() {
           </div>
         </div>
         <div className="Header__input">
-          <Search></Search>
+          
           <input type="text" placeholder="Search Question"></input>
         </div>
         <div className="Header__rem">
           <Avatar></Avatar>
         </div>
-        <Button>Add Question</Button>
+        <Button onClick={() => setIsModalOpen(true)}>Add Question</Button>
+
+       
+     
+      <div>
+      <button onClick={onOpenModal}>Open modal</button>
+      <Modal open={open} onClose={onCloseModal} center>
+        <h2>Simple centered modal</h2>
+      </Modal>
+  
+    </div>
       </div>
     </div>
   );
