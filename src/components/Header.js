@@ -8,21 +8,24 @@ import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { Avatar } from "@mui/material";
+import { Avatar, Input } from "@mui/material";
 import "./css/Header.css";
 import Modal from "react-responsive-modal";
 import CloseIcon from '@mui/icons-material/Close';
+import ReactModal from 'react-modal';
+import { AssignmentTurnedInOutlined,
+  // Close,
+  NotificationsOutlined,
+  PeopleAltOutlined,
+  Search,
+  ExpandMore, } from "@mui/icons-material";
 
 
 function Header() {
 
-  const [open, setOpen] = useState(false);
-
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const Close=<CloseIcon></CloseIcon>
+  const Close = <CloseIcon />;
+  
 
   return (
     <div className="Header">
@@ -55,13 +58,69 @@ function Header() {
           <Avatar></Avatar>
         </div>
         <Button onClick={() => setIsModalOpen(true)}>Add Question</Button>
-
-       
-     
       <div>
-      <button onClick={onOpenModal}>Open modal</button>
-      <Modal open={open} onClose={onCloseModal} center>
-        <h2>Simple centered modal</h2>
+
+      <Modal open={isModalOpen}
+            closeIcon={Close}
+            onClose={() => setIsModalOpen(false)}
+            closeOnEsc
+            center
+            closeOnOverlayClick={false}
+            styles={{
+              overlay: {
+                height: "auto",
+              },
+            }}
+          >
+            <div className="modal__title">
+              <h5>Add Question</h5>
+              <h5>Share Link</h5>
+            </div>
+            <div className="modal__info">
+              <Avatar className="avatar" />
+              <div className="modal__scope">
+                <PeopleAltOutlined />
+                <p>Public</p>
+                <ExpandMore />
+              </div>
+            </div>
+            <div className="modal__Field">
+           
+              <Input
+               
+               
+                type=" text"
+                placeholder="Start your question with 'What', 'How', 'Why', etc. "
+              />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <input
+                  type="text"
+                 
+                 
+                  style={{
+                    margin: "5px 0",
+                    border: "1px solid lightgray",
+                    padding: "10px",
+                    outline: "2px solid #000",
+                  }}
+                  placeholder="Optional: inclue a link that gives context"
+                />
+             
+              </div>
+            </div>
+            <div className="modal__buttons">
+              <button className="cancle" onClick={() => setIsModalOpen(false)}>
+                Cancel
+              </button>
+              <button  className="add">
+                Add Question
+              </button>
+            </div>
       </Modal>
   
     </div>

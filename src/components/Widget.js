@@ -11,8 +11,7 @@ function Widget() {
       <div className="widget__contents">
         <WidgetContent />
         <WidgetContent />
-        <WidgetContent />
-        <WidgetContent />
+       
       </div>
     </div>
   );

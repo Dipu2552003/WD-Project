@@ -6,12 +6,12 @@ function WidgetContent() {
     <div className=" widget__contents">
       <div className="widget__content">
         <img
-          src="https://qphs.fs.quoracdn.net/main-thumb-ti-1737435-100-jxcfmjdvwvpkcketifttdmeeimxcatua.jpeg"
+          src="./img/img2.jpg"
           alt=""
         />
         <div className="widget__contentTitle">
-          <h5>Mobile App Programmer</h5>
-          <p>The best Mobile App Development Company</p>
+          <h5>TEDxVITPune </h5>
+          <p>In the upcoming month the TEDxVITpune is coming up with their event</p>
         </div>
       </div>
     </div>
