@@ -8,6 +8,10 @@ const db = require("./db");
 const router = require("./routes");
 
 
+//databse Connections
+db.connect();
+
+
 //middle-ware
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
@@ -26,3 +30,12 @@ app.use((req, res, next) => {
       res.send("Oops! unexpected error");
     }
   });
+
+
+  app.listen(process.env.PORT || PORT,()=>{
+    console.log("working"); 
+  })
+
+
+  //routes
+  app.use("/api",router)
