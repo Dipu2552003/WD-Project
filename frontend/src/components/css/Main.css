@@ -1,6 +1,7 @@
 .main {
     width: "100%";
     min-width: fit-content;
+    
   }
   
   .main__contents {
@@ -9,7 +10,6 @@
     padding: 50px 0;
     background-color: rgba(0, 0, 0, 0.05);
     min-width: fit-content;
-    width: 100%;
   }
   
   .main__content {
