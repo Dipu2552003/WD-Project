@@ -4,7 +4,7 @@ const AnswerSchema = new mongoose.Schema({
   answer: String,
   questionId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "questions",
+    ref: "Question", // Corrected the reference name to singular "Question"
   },
   createdAt: {
     type: Date,
@@ -13,4 +13,4 @@ const AnswerSchema = new mongoose.Schema({
   user: Object,
 });
 
-module.exports = mongoose.model("Answers", AnswerSchema);
+module.exports = mongoose.model("Answers", AnswerSchema); // Changed the model name to singular "Answer"

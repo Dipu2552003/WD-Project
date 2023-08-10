@@ -1,67 +1,155 @@
+
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 
-const questionDB = require("../models/Question");
+// Define the Question schema
 
-router.post("/", async (req, res) => {
-  console.log(req.body);
 
+const QuestionSchema = new mongoose.Schema({
+  questionName: String,
+  questionUrl: String,
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
+  answers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Answer", // Corrected the reference name to singular "Answer"
+  }],
+  user: {
+    // Define a sub-document schema for the user information
+    name: String,
+    email: String,
+    // ... other relevant fields
+  },
+});
+
+
+
+
+// Create the Question model
+const Question = mongoose.model("Question", QuestionSchema);
+
+// Define routes
+router.route("/").get(async (req, res) => {
   try {
-    await questionDB
-      .create({
-        questionName: req.body.questionName,
-        questionUrl: req.body.questionUrl,
-        user: req.body.user,
-      })
-      .then(() => {
-        res.status(201).send({
-          status: true,
-          message: "Question added successfully",
-        });
+    const aggregatedQuestions = await Question.aggregate([
+      {
+        $lookup: {
+          from: "answers", // Assuming "answers" is the name of your answers collection
+          localField: "_id",
+          foreignField: "questionId",
+          as: "allAnswers",
+        },
+      },
+    ]);
+
+    res.status(200).send(aggregatedQuestions);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      status: false,
+      message: "An error occurred",
+    });
+  }
+})
+  .post((req, res) => {
+    console.log(req.body.title);
+    console.log(req.body.content);
+
+    const newQuestion = new Question({
+      questionName: req.body.questionName,
+      questionUrl: req.body.questionUrl,
+    });
+
+    newQuestion
+      .save()
+      .then((savedQuestion) => {
+        console.log(savedQuestion);
+        res.send(savedQuestion);
       })
       .catch((err) => {
-        res.status(400).send({
-          staus: false,
-          message: "Bad format",
-        });
+        console.log(err);
+        res.send(err);
       });
-  } catch (e) {
-    res.status(500).send({
-      status: false,
-      message: "Error while adding question",
-    });
-  }
-});
-
-router.get("/", async (req, res) => {
-  try {
-    await questionDB
-      .aggregate([
-        {
-          $lookup: {
-            from: "answers", //collection to join
-            localField: "_id", //field from input document
-            foreignField: "questionId",
-            as: "allAnswers", //output array field
-          },
-        },
-      ])
-      .exec()
-      .then((doc) => {
-        res.status(200).send(doc);
+  })
+  .delete((req, res) => {
+    Question.deleteMany()
+      .then(() => {
+        console.log("All Questions deleted");
+        res.status(204).send(); // 204 No Content
       })
-      .catch((error) => {
-        res.status(500).send({
-          status: false,
-          message: "Unable to get the question details",
-        });
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ error: "Internal server error" });
       });
-  } catch (e) {
-    res.status(500).send({
-      status: false,
-      message: "Unexpected error",
-    });
-  }
-});
+  });
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const questionDB = require("../models/Question");
+
+// router.post("/", async (req, res) => {
+//   console.log(req.body);
+
+//   try {
+//     await questionDB.create({
+//       questionName: req.body.questionName,
+//       questionUrl: req.body.questionUrl,
+//     });
+
+//     res.status(201).send({
+//       status: true,
+//       message: "Question added successfully",
+//     });
+//   } catch (err) {
+//     res.status(400).send({
+//       status: false,
+//       message: "Bad format",
+//     });
+//   }
+// });
+
+// router.get("/", async (req, res) => {
+//   questionDB
+//     .aggregate([
+//       {
+//         $lookup: {
+//           from: "answers",
+//           localField: "_id",
+//           foreignField: "questionId",
+//           as: "allAnswers",
+//         },
+//       },
+//     ])
+//     .exec()
+//     .then((doc) => {
+//       res.status(200).send(doc);
+//     })
+//     .catch((error) => {
+//       res.status(500).send({
+//         status: false,
+//         message: "Unable to get the question details",
+//       });
+//     });
+// });
+
+
+
+// module.exports = router;
