@@ -19,4 +19,4 @@ const QuestionSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Question", QuestionSchema); // Changed the model name to singular "Question"
+module.exports = mongoose.model("Questions", QuestionSchema); // Changed the model name to singular "Question"
