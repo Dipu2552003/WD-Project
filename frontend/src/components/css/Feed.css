@@ -2,5 +2,16 @@
     display: flex;
     flex-direction: column;
     flex: 1 ;
-    
+    overflow-y: scroll;
   }
+
+  .feed::-webkit-scrollbar {
+    display: none;
+}
+
+
+.feed {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+  

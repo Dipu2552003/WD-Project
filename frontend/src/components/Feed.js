@@ -3,8 +3,10 @@ import MainBox from './MainBox'
 import Post from './Post'
 import './css/Feed.css'
 import axios from 'axios'
+import examplePosts from "./useExamplePosts"
 
 function Feed() {
+  
   const[posts,setPosts]=useState([])
   useEffect(()=>{
     axios
@@ -25,6 +27,11 @@ function Feed() {
    {posts.map((post, index) => (
       <Post key={index} post={post} />
     ))}
+
+    {examplePosts.map((post) => (
+        <Post key={post._id} post={post} />
+      ))}
+
     </div>
   )
 }

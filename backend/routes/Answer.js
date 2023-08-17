@@ -11,9 +11,10 @@ const AnswerSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   user: Object,
+  tags: [String],
 });
 
 const Answer = mongoose.model("Answer", AnswerSchema);
@@ -28,6 +29,7 @@ router.post("/", (req, res) => {
   const newAnswer = new Answer({
     answer: req.body.answer,
     questionId: req.body.questionId,
+    user: req.body.user,
   });
 
   newAnswer

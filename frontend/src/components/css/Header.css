@@ -225,4 +225,62 @@
       display: none;
     }
   }
+
+  /* App.css or your custom CSS file */
+.tag-input-container {
+  width: 300px;
+ 
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+ 
+}
+
+.tag {
+  background-color: #f2f2f2;
+  padding: 6px 12px;
+  border-radius: 16px;
+  margin: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 20px;
+}
+
+.tag:hover {
+  background-color: #e0e0e0;
+}
+
+.selected {
+  background-color: #3498db;
+  color: white;
+}
+
+.selected:hover {
+  background-color: #2980b9;
+}
+
+.tag-label {
+  display: inline-block;
+  padding: 3px 6px;
+  border-radius: 4px;
+  background-color: #3498db;
+  color: white;
+  font-weight: bold;
+}
+
+#selectedTags{
+
+  margin-bottom: 20px;
+}
+
   

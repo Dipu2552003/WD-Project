@@ -70,6 +70,7 @@ function Post({ post }) {
   const handleModalOpen = () => setIsModalOpen(true);
   const handleModalClose = () => setIsModalOpen(false);
 
+
   function isValidUrl(url) {
     const urlPattern = /^(http|https):\/\//i;
     return urlPattern.test(url);
@@ -90,6 +91,7 @@ function Post({ post }) {
       const body = {
         answer: answer,
         questionId: post?._id,
+       
       };
       await axios
         .post("/api/answers", body, config)

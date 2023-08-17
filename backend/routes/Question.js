@@ -11,18 +11,14 @@ const QuestionSchema = new mongoose.Schema({
   questionUrl: String,
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now, 
   },
   answers: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Answer", // Corrected the reference name to singular "Answer"
   }],
-  user: {
-    // Define a sub-document schema for the user information
-    name: String,
-    email: String,
-    // ... other relevant fields
-  },
+
+  tags: [String],
 });
 
 
@@ -61,6 +57,8 @@ router.route("/").get(async (req, res) => {
     const newQuestion = new Question({
       questionName: req.body.questionName,
       questionUrl: req.body.questionUrl,
+      tags: req.body.selectedTags,
+      
     });
 
     newQuestion

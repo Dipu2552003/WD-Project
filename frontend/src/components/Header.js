@@ -23,6 +23,7 @@ import { AssignmentTurnedInOutlined,
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import axios from "axios";
+import { useSelector } from "react-redux";
 
   
 
@@ -50,9 +51,13 @@ function Header() {
   const [inputUrl, setInputUrl]= useState("");
   const [question,setQuestion]=useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const tags = ['#Academic', '#HigherStudies', 'Clubs', 'Scholoarship'];
+  const [selectedTags, setSelectedTags] = useState([]);
   
   const handleModalOpen = () => setIsModalOpen(true);
   const handleModalClose = () => setIsModalOpen(false);
+
+ 
 
   const handleSubmit = async()=>{
     if(question!==""){
@@ -66,6 +71,7 @@ function Header() {
       const body={
         questionName: question,
         questionUrl: inputUrl,
+        tags: selectedTags,
       }
       await axios.post('/api/questions' , body,config).then((res)=>{
         console.log(res.data)
@@ -76,6 +82,14 @@ function Header() {
       })
     }
   }
+
+   const toggleTag = (tagText) => {
+    if (selectedTags.includes(tagText)) {
+      setSelectedTags(selectedTags.filter(tag => tag !== tagText));
+    } else {
+      setSelectedTags([...selectedTags, tagText]);
+    }
+  };
   
 
   return (
@@ -162,6 +176,31 @@ function Header() {
                   placeholder="Optional: include a link that gives context"
                 />
               </div>
+
+              <div
+              style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginTop: "20px",
+                }}
+              >    
+      <div id="selectedTags">
+        {selectedTags.map((tag, index) => (
+          <span key={index} className="tag">{tag}</span>
+        ))}
+      </div>
+      <div id="tagContainer">
+      {tags.map((tag, index) => (
+          <span
+            key={index}
+            className={`tag ${selectedTags.includes(tag) ? 'selected' : ''}`}
+            onClick={() => toggleTag(tag)}
+          >
+            {tag}
+          </span>
+        ))}
+         </div>
+    </div>
             </div>
             <div className="modal__buttons">
               <button className="cancel" onClick={handleClose}>
