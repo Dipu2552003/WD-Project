@@ -1,39 +1,26 @@
-// Import required libraries
 const { MongoClient } = require("mongodb");
 const mongoose = require("mongoose");
 
-// Connection URL for MongoDB Atlas (or your local MongoDB instance)
-const mongoDBURL = "mongodb://localhost:27017/wikiDB";
+const username = encodeURIComponent("deepkul2552003");
+const password = encodeURIComponent("12111226");
+const cluster = "Cluster-0";
+const dbName = "db"; 
 
-// Connect to MongoDB using the native driver
+const uri = `mongodb+srv://${username}:${password}@${cluster}.bowgfzd.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+
+
+const client = new MongoClient(uri, { useUnifiedTopology: true });
+
 async function connectToMongoDB() {
-  const client = new MongoClient(mongoDBURL, { useNewUrlParser: true });
-
   try {
-    // Connect to the MongoDB server
     await client.connect();
-    console.log("Connected to MongoDB using native driver");
-
-    // Perform operations using the client
-
+    console.log("Conn to MongoDB");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
-  } finally {
-    // Close the connection when done
-    await client.close();
-    console.log("MongoDB connection closed");
   }
 }
 
-// Connect to MongoDB using Mongoose
-mongoose.connect(mongoDBURL, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log("Connected to MongoDB using Mongoose");
-    // You can define Mongoose schemas and models here
-  })
-  .catch((error) => {
-    console.error("Error connecting to MongoDB using Mongoose:", error);
-  });
+// Call the function to connect and perform operations
+connectToMongoDB().catch(console.error);
 
-// Call the function to connect to MongoDB using native driver
-connectToMongoDB();
+module.exports = connectToMongoDB;

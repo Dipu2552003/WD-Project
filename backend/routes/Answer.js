@@ -14,7 +14,7 @@ const AnswerSchema = new mongoose.Schema({
     default: Date.now,
   },
   user: Object,
-  tags: [String],
+  // tags: [String],
 });
 
 const Answer = mongoose.model("Answer", AnswerSchema);
